@@ -24,3 +24,9 @@ chrome.runtime.onStartup.addListener(() => {
     totalSeconds = data.youtubeTime || 0;
   });
 });
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.action === "GET_STATE") {
+    sendResponse({ time: totalSeconds });
+  }
+});
