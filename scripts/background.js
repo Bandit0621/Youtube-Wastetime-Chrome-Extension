@@ -1,11 +1,9 @@
 let totalSeconds = 0;
-let activeTabId = null;
 let timer = null;
 
 chrome.runtime.onMessage.addListener((message, sender) => {
-  if (message === "startTimer" && sender.tab) {
+  if (message === "startTimer") {
     if (timer) clearInterval(timer);
-    activeTabId = sender.tab.id;
     timer = setInterval(() => {
       totalSeconds++;
       chrome.storage.local.set({ youtubeTime: totalSeconds });
@@ -15,7 +13,6 @@ chrome.runtime.onMessage.addListener((message, sender) => {
   if (message === "stopTimer") {
     clearInterval(timer);
     timer = null;
-    activeTabId = null;
   }
 });
 
